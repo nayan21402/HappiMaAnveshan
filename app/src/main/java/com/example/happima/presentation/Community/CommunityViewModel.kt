@@ -21,11 +21,11 @@ class CommunityViewModel(
     fun updateFeed() {
         viewModelScope.launch {
             repository.getFeed { messages ->
-                _uiState.value = _uiState.value.copy(feed = messages, feedUpdated = true)
-                Log.d("commFromViewInside", _uiState.value.feedUpdated.toString())
+                _uiState.value = _uiState.value.copy(feed = messages)
+                Log.d("NewcommFromViewInside", _uiState.value.feedUpdated.toString())
             }
         }
-        Log.d("commFromView", _uiState.value.feedUpdated.toString())
+        Log.d("NewcommFromView", _uiState.value.feedUpdated.toString())
     }
 
     fun addMessage() {
