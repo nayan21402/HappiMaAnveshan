@@ -12,15 +12,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
+import com.example.happima.presentation.database.RepositoryImp
 import com.example.happima.presentation.navigationBars.BottomBar
 import com.example.happima.presentation.navigationBars.TopBar
 import com.example.happima.presentation.sign_in.UserData
 import com.example.happima.presentation.home.HomeViewModel
 
 @Composable
-fun RenderScreen(enableTopBar : Boolean = true,homeViewModel: HomeViewModel,navController: NavController,content :@Composable () -> Unit){
+fun RenderScreen(repository: RepositoryImp, enableTopBar : Boolean = true,homeViewModel: HomeViewModel,navController: NavController,content :@Composable () -> Unit){
 
-    Scaffold(topBar = { if(enableTopBar)TopBar(homeViewModel, navController = navController) else {} }, bottomBar = { BottomBar(homeViewModel = homeViewModel,navController = navController)}) {
+    Scaffold(topBar = { if(enableTopBar)TopBar(repository = repository,homeViewModel, navController = navController) else {} }, bottomBar = { BottomBar(homeViewModel = homeViewModel,navController = navController)}) {
         Box(
             modifier = Modifier
                 .fillMaxSize() // Fill the maximum available size

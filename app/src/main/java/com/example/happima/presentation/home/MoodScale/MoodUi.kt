@@ -22,6 +22,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -33,6 +34,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -48,18 +50,16 @@ import java.util.Date
 
 
 @Composable
-fun MoodUi(CloudDatabase: CloudDatabase?, userData: UserData?, onDismiss: ()-> Unit){
+fun MoodUi(model: MoodViewModel,onDismiss: ()-> Unit){
     Dialog(onDismissRequest = { /*TODO*/ }) {
         Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),modifier = Modifier.clip(RoundedCornerShape(10))) {
-            val moodList = Resource.provideMoodList()
-
-            var selectedMood by rememberSaveable {
-                mutableIntStateOf(2)
-            }
+            val moodList = model.uiState.collectAsState().value.moodList
+            val userName = model.uiState.collectAsState().value.userName
+            var selectedMood = model.uiState.collectAsState().value.selectedMood
             Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(5.dp)) {
                 Spacer(modifier = Modifier.height(20.dp))
 
-                Text(text = "${userData?.username} how are you feeling today?", fontSize = 25.sp, fontFamily = alegreya, fontWeight = FontWeight.Bold, modifier = Modifier
+                Text(text = "${userName} how are you feeling today?", fontSize = 25.sp, fontFamily = alegreya, fontWeight = FontWeight.Bold, modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 10.dp), textAlign = TextAlign.Center)
                 Spacer(modifier = Modifier.height(20.dp))
@@ -71,12 +71,14 @@ fun MoodUi(CloudDatabase: CloudDatabase?, userData: UserData?, onDismiss: ()-> U
                             .clickable(
                                 interactionSource = remember { MutableInteractionSource() },
                                 indication = null
-                            ) { selectedMood = index }) {
+                            ) {
+                                model.updateSelectedMood(index)
+                            }) {
                             val moodSize by animateFloatAsState(targetValue = if (selectedMood==index) 1.35f else 1f)
                             val moodAlpha by animateFloatAsState(targetValue = if (selectedMood==index) 1f else 0.75f)
 
                             val moodIndicator by animateColorAsState(targetValue =if (selectedMood == index) MaterialTheme.colorScheme.primary else Color.Transparent)
-                            Image(painter = moodData.image, contentDescription = moodData.mood, modifier = Modifier
+                            Image(painter = painterResource(id = moodData.image), contentDescription = moodData.mood, modifier = Modifier
                                 .wrapContentHeight()
                                 .scale(moodSize)
                                 .alpha(moodAlpha))
@@ -93,7 +95,7 @@ fun MoodUi(CloudDatabase: CloudDatabase?, userData: UserData?, onDismiss: ()-> U
                     }
                 }
                 Button(onClick = {
-                    CloudDatabase?.addMoodDb(moodDataDb(Date(),selectedMood),userData)
+                    model.addMoodDb()
                     onDismiss()
                 }
                 ) {
@@ -112,7 +114,6 @@ fun MoodUi(CloudDatabase: CloudDatabase?, userData: UserData?, onDismiss: ()-> U
 @Composable
 fun MoodUiPreview(){
     AppTheme {
-        MoodUi(null,null,{})
     }
 }
 

@@ -4,14 +4,12 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.happima.presentation.database.Repository
-import com.example.happima.presentation.sign_in.UserData
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class CommunityViewModel(
-    private val repository: Repository,
-    userData: UserData?
+    private val repository: Repository
 ) : ViewModel() {
     private var _uiState = MutableStateFlow(CommunityUiState())
     val uiState = _uiState.asStateFlow()

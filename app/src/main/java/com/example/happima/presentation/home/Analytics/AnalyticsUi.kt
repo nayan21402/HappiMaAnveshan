@@ -11,6 +11,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,19 +37,12 @@ import com.patrykandpatrick.vico.core.model.CartesianChartModelProducer
 import com.patrykandpatrick.vico.core.model.lineSeries
 
 @Composable
-fun Analytics(userData: UserData?, modifier:Modifier) {
-    var moodPoints by remember { mutableStateOf<List<moodDataDb>>(emptyList()) }
-    var showGraph by remember { mutableStateOf(false) }
-    val graphColor = Color.Blue // Adjust color as needed
+fun Analytics(analyticsViewModel: AnalyticsViewModel, modifier:Modifier) {
+    var moodPoints = analyticsViewModel.uiState.collectAsState().value.moodPoints
+    var showGraph =analyticsViewModel.uiState.collectAsState().value.showGraph
 
-    LaunchedEffect(userData) {
-        if (userData != null) {
-            CloudDatabase.fetchLast15DataPoints(userData) { moodDataList ->
-                moodPoints = moodDataList
-                showGraph = true
-            }
-        }
-    }
+    analyticsViewModel.fetchMoodPoints()
+
     Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),modifier = modifier
         .clip(
             RoundedCornerShape(10)

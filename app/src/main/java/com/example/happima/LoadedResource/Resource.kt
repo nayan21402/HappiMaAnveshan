@@ -2,21 +2,18 @@ package com.example.happima.LoadedResource
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.res.painterResource
 import com.example.happima.R
 
-data class moodDataUi(val mood: String, val image: Painter, val color : Color)
+data class moodDataUi(val mood: String, val image: Int, val color: Color)
 
 object Resource {
-    @Composable
     fun provideMoodList(): List<moodDataUi> {
         return listOf(
-            moodDataUi("worst", painterResource(id = R.drawable.worst), Color(0xffFF555E)),
-            moodDataUi("bad", painterResource(id = R.drawable.bad), Color(0xffFF8448)),
-            moodDataUi("neutral", painterResource(id = R.drawable.neutral), Color(0xffFDCF18)),
-            moodDataUi("good", painterResource(id = R.drawable.best), Color(0xff9FD772)),
-            moodDataUi("best", painterResource(id = R.drawable.good), Color(0xff61CA63))
+            moodDataUi("worst", R.drawable.worst, Color(0xffFF555E)),
+            moodDataUi("bad", R.drawable.bad, Color(0xffFF8448)),
+            moodDataUi("neutral", R.drawable.neutral, Color(0xffFDCF18)),
+            moodDataUi("good", R.drawable.best, Color(0xff9FD772)),
+            moodDataUi("best", R.drawable.good, Color(0xff61CA63))
         )
     }
 

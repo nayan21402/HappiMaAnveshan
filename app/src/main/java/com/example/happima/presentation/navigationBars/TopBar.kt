@@ -20,7 +20,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -28,13 +30,19 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.compose.AppTheme
 import com.example.happima.LoadedResource.Resource
+import com.example.happima.presentation.database.RepositoryImp
 import com.example.happima.presentation.sign_in.UserData
 import com.example.happima.presentation.home.HomeViewModel
 
 @Composable
-fun TopBar(viewModel: HomeViewModel, navController: NavController?){
+fun TopBar(repository: RepositoryImp,viewModel: HomeViewModel, navController: NavController?){
     val homeUiState by viewModel.homeUiState.collectAsState()
     val moodList = Resource.provideMoodList()
+    var userData : UserData? = null
+    repository.getUserData {
+        userData= it
+    }
+
     Row(horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
@@ -45,11 +53,11 @@ fun TopBar(viewModel: HomeViewModel, navController: NavController?){
             viewModel.showMoodDialog(true)
         }) {
             val moodAnimate by animateFloatAsState(targetValue = if ( homeUiState.currentMood!= null) 1f else 0f)
-            Image(painter = if ( homeUiState.currentMood!= null) moodList[homeUiState.currentMood!!].image else moodList[0].image, contentDescription = null, modifier = Modifier.size(50.dp).alpha(if ( homeUiState.currentMood!= null) 1f else 0f))
+            Image(painter = painterResource(if ( homeUiState.currentMood!= null) moodList[homeUiState.currentMood!!].image else moodList[0].image), contentDescription = null, modifier = Modifier.size(50.dp).alpha(if ( homeUiState.currentMood!= null) 1f else 0f))
 
         }
         IconButton(onClick = { navController?.navigate("setting") }, modifier = Modifier.size(50.dp)) {
-            ProfileImage(userData = homeUiState.userData, size = 40, modifier = Modifier)
+            ProfileImage(userData = userData, size = 40, modifier = Modifier)
         }
     }
 }

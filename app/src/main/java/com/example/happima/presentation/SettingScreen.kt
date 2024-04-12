@@ -20,14 +20,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.example.happima.presentation.database.RepositoryImp
 import com.example.happima.presentation.sign_in.UserData
 import com.example.happima.presentation.home.HomeViewModel
 
 import com.example.happima.ui.theme.alegreya
 
 @Composable
-fun SettingScreen(homeViewModel: HomeViewModel, userData: UserData?, navController: NavController, onSignOut: () -> Unit){
-    RenderScreen(homeViewModel = homeViewModel, navController=navController){
+fun SettingScreen(repository: RepositoryImp,homeViewModel: HomeViewModel, userData: UserData?, navController: NavController, onSignOut: () -> Unit){
+    RenderScreen(repository = repository,homeViewModel = homeViewModel, navController=navController){
         Content(userData,onSignOut)
     }
 }

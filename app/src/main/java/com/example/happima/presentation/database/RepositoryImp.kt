@@ -2,10 +2,17 @@ package com.example.happima.presentation.database
 
 import com.example.happima.presentation.Community.userMessage
 import com.example.happima.presentation.home.MoodScale.moodDataDb
+import com.example.happima.presentation.sign_in.UserData
 import com.plcoding.composegooglesignincleanarchitecture.presentation.sign_in.GoogleAuthUiClient
 
 class RepositoryImp(private val googleAuthUiClient: GoogleAuthUiClient) : Repository {
     private var db = CloudDatabase()
+    override fun getUserData(callback: (UserData) -> Unit) {
+        val user = googleAuthUiClient.getSignedInUser()
+        if (user != null) {
+            callback(user)
+        }
+    }
 
     override fun getMood(callback: (moodDataDb?) -> Unit) {
         val user = googleAuthUiClient.getSignedInUser()
@@ -28,6 +35,12 @@ class RepositoryImp(private val googleAuthUiClient: GoogleAuthUiClient) : Reposi
 
     override fun getFeed(callback: (List<userMessage>) -> Unit) {
         db.retrieveMessage {
+            callback(it)
+        }
+    }
+
+    override fun fetchMoodGraph(callback: (List<moodDataDb>) -> Unit) {
+        db.fetchLast15DataPoints(googleAuthUiClient.getSignedInUser()){
             callback(it)
         }
     }

@@ -22,19 +22,18 @@ import com.example.compose.AppTheme
 import com.example.happima.presentation.Community.CommunityUi
 import com.example.happima.presentation.Community.CommunityViewModel
 import com.example.happima.presentation.Gemini.ChatViewModel
-import com.example.happima.presentation.Survey.SurveyScreen
-import com.example.happima.presentation.home.LandingScreen
 import com.example.happima.presentation.SettingScreen
 import com.example.happima.presentation.Survey.SurveyConsent
-import com.google.android.gms.auth.api.identity.Identity
-import com.plcoding.composegooglesignincleanarchitecture.presentation.sign_in.GoogleAuthUiClient
+import com.example.happima.presentation.Survey.SurveyScreen
+import com.example.happima.presentation.database.RepositoryImp
+import com.example.happima.presentation.home.HomeScreen
+import com.example.happima.presentation.home.HomeViewModel
 import com.example.happima.presentation.sign_in.SignInScreen
 import com.example.happima.presentation.sign_in.SignInViewModel
-import com.example.happima.presentation.database.CloudDatabase
-import com.example.happima.presentation.database.RepositoryImp
-import com.example.happima.presentation.home.HomeViewModel
 import com.google.ai.client.generativeai.GenerativeModel
 import com.google.ai.sample.feature.chat.ChatScreen
+import com.google.android.gms.auth.api.identity.Identity
+import com.plcoding.composegooglesignincleanarchitecture.presentation.sign_in.GoogleAuthUiClient
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -53,7 +52,7 @@ class MainActivity : ComponentActivity() {
     lateinit var repository: RepositoryImp
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        repository=RepositoryImp(googleAuthUiClient)
+        repository= RepositoryImp(googleAuthUiClient)
         signInViewModel = SignInViewModel()
         chatViewModel=ChatViewModel(GenerativeModel(
             modelName = "gemini-1.0-pro",
@@ -94,11 +93,7 @@ class MainActivity : ComponentActivity() {
                                                     intent = result.data ?: return@launch
                                                 )
                                                 signInViewModel.onSignInResult(signInResult)
-                                                homeViewModel= signInResult.data?.let { it1 ->
-                                                    HomeViewModel(
-                                                        it1
-                                                    )
-                                                }!!
+
 
                                             }
                                         }
@@ -141,14 +136,15 @@ class MainActivity : ComponentActivity() {
                             }
                             composable("home") {
 
-                                HomeScreen(
+                                HomeScreen(repository,
                                     navController=navController,
                                     homeViewModel = homeViewModel
                                 )
                             }
                             composable("setting") {
                                 SettingScreen(
-                                    userData = googleAuthUiClient.getSignedInUser(),
+                                    repository
+                                    ,userData = googleAuthUiClient.getSignedInUser(),
                                     navController = navController, homeViewModel = homeViewModel)
                                 {
                                     lifecycleScope.launch {
@@ -179,12 +175,12 @@ class MainActivity : ComponentActivity() {
 
                             composable("chatBot"){
 
-                                ChatScreen(chatViewModel = chatViewModel, homeViewModel = homeViewModel, navController = navController)
+                                ChatScreen(repository,chatViewModel = chatViewModel, homeViewModel = homeViewModel, navController = navController)
                             }
 
                             composable("community"){
-                                communityViewModel=CommunityViewModel(userData = googleAuthUiClient.getSignedInUser())
-                                CommunityUi(
+                                communityViewModel=CommunityViewModel(repository)
+                                CommunityUi(repository = repository,
                                     communityViewModel = communityViewModel,
                                     homeViewModel = homeViewModel,
                                     navController = navController

@@ -56,17 +56,18 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.happima.presentation.Gemini.ChatViewModel
 import com.example.happima.presentation.RenderScreen
+import com.example.happima.presentation.database.RepositoryImp
 import com.example.happima.presentation.home.HomeViewModel
 import kotlinx.coroutines.launch
 
 @Composable
 fun ChatScreen(
-    chatViewModel: ChatViewModel, homeViewModel: HomeViewModel, navController: NavController
+    repository: RepositoryImp,chatViewModel: ChatViewModel, homeViewModel: HomeViewModel, navController: NavController
 ) {
     val chatUiState by chatViewModel.uiState.collectAsState()
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
-    RenderScreen(enableTopBar = false,homeViewModel = homeViewModel , navController = navController) {
+    RenderScreen(repository = repository,enableTopBar = false,homeViewModel = homeViewModel , navController = navController) {
         Scaffold(
             bottomBar = {
                 MessageInput(

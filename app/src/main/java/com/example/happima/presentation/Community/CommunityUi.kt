@@ -38,12 +38,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.compose.AppTheme
 import com.example.happima.presentation.RenderScreen
+import com.example.happima.presentation.database.RepositoryImp
 import com.example.happima.presentation.home.HomeViewModel
 import com.example.happima.ui.theme.alegreya
 import kotlinx.coroutines.coroutineScope
 
 @Composable
-fun CommunityUi(communityViewModel: CommunityViewModel,homeViewModel: HomeViewModel, navController: NavController){
+fun CommunityUi(repository: RepositoryImp,communityViewModel: CommunityViewModel,homeViewModel: HomeViewModel, navController: NavController){
     val state = communityViewModel.uiState.collectAsState().value
 
     LaunchedEffect(Unit) {
@@ -51,7 +52,7 @@ fun CommunityUi(communityViewModel: CommunityViewModel,homeViewModel: HomeViewMo
         communityViewModel.updateFeed()
 
     }
-    RenderScreen(homeViewModel = homeViewModel, navController = navController) {
+    RenderScreen(repository = repository,homeViewModel = homeViewModel, navController = navController) {
         Scaffold(topBar = { UserInput(communityViewModel)}) {it ->
             if(state.feedUpdated)
             {

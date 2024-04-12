@@ -11,18 +11,22 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.happima.presentation.RenderScreen
 import com.example.happima.presentation.database.CloudDatabase
+import com.example.happima.presentation.database.RepositoryImp
 import com.example.happima.presentation.home.Analytics.Analytics
+import com.example.happima.presentation.home.Analytics.AnalyticsViewModel
 import com.example.happima.presentation.home.MoodScale.MoodUi
+import com.example.happima.presentation.home.MoodScale.MoodViewModel
 import com.example.happima.presentation.home.Tip.Tip
 
 @Composable
-fun HomeScreen(navController: NavController, homeViewModel: HomeViewModel){
-
+fun HomeScreen(repository: RepositoryImp,navController: NavController, homeViewModel: HomeViewModel){
+    val moodViewModel = MoodViewModel(repository)
+    val analyticsViewModel= AnalyticsViewModel(repository)
     val homeUiState = homeViewModel.homeUiState.collectAsState()
 
-    RenderScreen(homeViewModel = homeViewModel, navController = navController){
+    RenderScreen(repository = repository,homeViewModel = homeViewModel, navController = navController){
         if(homeUiState.value.showMoodDialog){
-            MoodUi(CloudDatabase,homeUiState.value.userData) {
+            MoodUi(moodViewModel) {
                 homeViewModel.updateMoodFb()
                 homeViewModel.showMoodDialog(false)
             }
@@ -35,8 +39,8 @@ fun HomeScreen(navController: NavController, homeViewModel: HomeViewModel){
             }
             item {
                 Row {
-                    Analytics(userData = homeUiState.value.userData,Modifier.weight(1f))
-                    Analytics(userData = homeUiState.value.userData,Modifier.weight(1f))
+                    Analytics(analyticsViewModel,Modifier.weight(1f))
+                    Analytics(analyticsViewModel,Modifier.weight(1f))
 
                 }
 
