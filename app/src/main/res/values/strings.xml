@@ -1,0 +1,119 @@
+<resources>
+    <string name="app_name">HappiMa</string>
+    <string name="web_client_id">349679454237-t6giq67kvppq4o149r5htd0k8k40ikbk.apps.googleusercontent.com</string>
+
+    <string name="survey_start">Welcome to HappiMa!\n Let\'s tailor your journey with a quick survey.\n It\'s a step towards personalized support and understanding\, ensuring we\'re here for you in the most meaningful way.</string>
+
+    <string name="ques1">I have been able to laugh and see the funny side of things:</string>
+    <string name="q1opt0">As much as I always could</string>
+    <string name="q1opt1">Not quite so much now</string>
+    <string name="q1opt2">Definitely not so much now</string>
+    <string name="q1opt3">Not at all</string>
+
+    <string name="ques2">I have looked forward with enjoyment to things:</string>
+    <string name="q2opt0">As much as I ever did</string>
+    <string name="q2opt1">Rather less than I used to</string>
+    <string name="q2opt2">Definitely less than I used to</string>
+    <string name="q2opt3">Hardly at all</string>
+
+    <string name="ques3">I have been anxious or worried for no good reason:</string>
+    <string name="q3opt0">No, not at all</string>
+    <string name="q3opt1">Hardly ever</string>
+    <string name="q3opt2">Yes, sometimes</string>
+    <string name="q3opt3">Yes, very often</string>
+
+    <string name="ques4">I have blamed myself unnecessarily when things went wrong:</string>
+    <string name="q4opt0">No, never</string>
+    <string name="q4opt1">Not very often</string>
+    <string name="q4opt2">Yes, some of the time</string>
+    <string name="q4opt3">Yes, most of the time</string>
+
+
+    <string name="ques5">I have felt scared or panicky for no good reason:</string>
+    <string name="q5opt0">No, not at all</string>
+    <string name="q5opt1">No, not much</string>
+    <string name="q5opt2">Yes, sometimes</string>
+    <string name="q5opt3">Yes, quite a lot</string>
+
+    <string name="ques6">Things have been getting to me:</string>
+    <string name="q6opt0">No, I have been coping as well as ever</string>
+    <string name="q6opt1">No, most of the time I have coped quite well</string>
+    <string name="q6opt2">Yes, sometimes I haven’t been coping as well as usual</string>
+    <string name="q6opt3">Yes, most of the time I haven’t been able to cope at all</string>
+
+    <string name="ques7">I have been so unhappy that I have had difficulty sleeping:</string>
+    <string name="q7opt0">No, not at all</string>
+    <string name="q7opt1">No, not very often</string>
+    <string name="q7opt2">Yes, sometimes</string>
+    <string name="q7opt3">Yes, most of the time</string>
+
+    <string name="ques8">I have felt sad or miserable:</string>
+    <string name="q8opt0">No, not at all</string>
+    <string name="q8opt1">Not very often</string>
+    <string name="q8opt2">Yes, quite often</string>
+    <string name="q8opt3">Yes, most of the time</string>
+
+    <string name="ques9">I have been so unhappy that I have been crying:</string>
+    <string name="q9opt0">No, never</string>
+    <string name="q9opt1">Only occasionally</string>
+    <string name="q9opt2">Yes, quite often</string>
+    <string name="q9opt3">Yes, most of the time</string>
+
+    <string name="ques10">The thought of harming myself has occurred to me:</string>
+    <string name="q10opt0">Never</string>
+    <string name="q10opt1">Hardly ever</string>
+    <string name="q10opt2">Sometimes</string>
+    <string name="q10opt3">Yes, quite often</string>
+
+    <string name="tip1">Prioritize self-care; even short breaks can significantly boost your mental health and provide a much-needed sense of refreshment.</string>
+    <string name="tip2">Establish a support system; lean on family, friends, or support groups to share your feelings and receive encouragement.</string>
+    <string name="tip3">Accept help when offered; letting others assist with chores or babysitting can give you space to breathe and relax.</string>
+    <string name="tip4">Communicate openly with your partner about your feelings and needs, fostering a stronger bond and mutual support.</string>
+    <string name="tip5">Set realistic expectations for yourself; understanding that being a perfect parent is unattainable can alleviate immense pressure.</string>
+    <string name="tip6">Limit visits and obligations to avoid overwhelm; it\'s okay to say no and prioritize your and your baby\'s needs.</string>
+    <string name="tip7">Practice mindfulness or meditation; these techniques can help reduce stress, anxiety, and symptoms of depression.</string>
+    <string name="tip8">Keep a journal; expressing your thoughts and feelings on paper can be a therapeutic outlet for your emotions.</string>
+    <string name="tip9">Stay connected with friends; maintaining social interactions can provide a sense of normalcy and decrease feelings of isolation.</string>
+    <string name="tip10">Seek professional help if needed; therapists or counselors specializing in postpartum depression can offer valuable guidance and treatment.</string>
+    <string name="tip11">Prioritize nutrition; eating a balanced diet can have a positive effect on your mood and energy levels.</string>
+    <string name="tip12">Incorporate physical activity; even gentle exercise like walking can improve your mood and mental health.</string>
+    <string name="tip13">Ensure adequate sleep; sleep deprivation can exacerbate depression, so seek ways to improve sleep quality and duration.</string>
+    <string name="tip14">Limit screen time; reducing exposure to social media and electronics can decrease stress and promote relaxation.</string>
+    <string name="tip15">Create a routine; having a predictable schedule can provide a sense of control and stability in your life.</string>
+    <string name="tip16">Find time for hobbies; engaging in activities you enjoy can be a great way to relieve stress and find joy.</string>
+    <string name="tip17">Use positive affirmations; remind yourself of your strengths and accomplishments to boost self-esteem and combat negative thoughts.</string>
+    <string name="tip18">Seek sunlight and fresh air daily; natural light has been shown to improve mood and overall well-being.</string>
+    <string name="tip19">Consider support from online communities; many find solace and understanding in forums dedicated to postpartum challenges.</string>
+    <string name="tip20">Educate yourself about PPD; understanding your condition can demystify your experiences and highlight the path to recovery.</string>
+    <string name="tip21">Allow yourself to grieve the loss of your former life; acknowledging this change can pave the way for acceptance.</string>
+    <string name="tip22">Practice gratitude; focusing on the positive aspects of your life can shift your perspective and elevate your mood.</string>
+    <string name="tip23">Break tasks into smaller steps; managing one small task at a time can reduce feelings of being overwhelmed.</string>
+    <string name="tip24">Remember, healing takes time; be patient with yourself and recognize that recovery from PPD is a gradual process.</string>
+    <string name="tip25">Surround yourself with positivity; seek out positive people and experiences to uplift your spirits.</string>
+    <string name="tip26">Limit caffeine and sugar intake; these substances can contribute to mood swings and energy crashes.</string>
+    <string name="tip27">Seek out laughter; watching a funny movie or spending time with humorous friends can lighten your mood.</string>
+    <string name="tip28">Consider peer support; talking with others who have experienced PPD can provide comfort and practical advice.</string>
+    <string name="tip29">Engage in gentle yoga or stretching; these activities can reduce physical tension and promote mental relaxation.</string>
+    <string name="tip30">Listen to soothing music; music has the power to calm the mind and soothe the soul.</string>
+    <string name="tip31">Prioritize your relationship; spending quality time with your partner can strengthen your support system.</string>
+    <string name="tip32">Acknowledge small victories; celebrate your achievements, no matter how small, to foster a sense of accomplishment.</string>
+    <string name="tip33">Embrace imperfection; accepting that imperfection is part of parenthood can alleviate unnecessary stress.</string>
+    <string name="tip34">Connect with nature; spending time outdoors can improve your mood and connect you to the wider world.</string>
+    <string name="tip35">Seek spiritual or religious support if it resonates with you; many find comfort and strength in their faith during challenging times.</string>
+    <string name="tip36">Explore art therapy; creating art can be a non-verbal way to express your feelings and reduce anxiety.</string>
+    <string name="tip37">Practice deep breathing exercises; these can quickly help reduce feelings of panic and anxiety.</string>
+    <string name="tip38">Set aside time for relaxation; prioritize activities that help you unwind and feel at peace.</string>
+    <string name="tip39">Avoid comparing yourself to others; remember that every mother\'s journey is unique, and comparison can steal joy.</string>
+    <string name="tip40">Trust your instincts; you know yourself and your baby best, and trusting your intuition can empower you as a parent.</string>
+    <string name="tip41">Explore different parenting styles; finding a style that resonates with you can increase confidence and reduce anxiety.</string>
+    <string name="tip42">Remind yourself of the temporary nature of this phase; understanding that this period will pass can provide hope.</string>
+    <string name="tip43">Focus on bonding with your baby; skin-to-skin contact and eye contact can strengthen your connection and enhance emotional well-being.</string>
+    <string name="tip44">Limit your obligations; reducing your to-do list can decrease stress and allow more time for rest and family.</string>
+    <string name="tip45">Find a supportive pediatrician; having a healthcare provider who listens and supports you can be invaluable.</string>
+    <string name="tip46">Join a postpartum exercise class; these classes can offer both physical benefits and social support.</string>
+    <string name="tip47">Remember you\'re not alone; many mothers experience PPD, and there\'s strength in seeking support and sharing your journey.</string>
+    <string name="tip48">Focus on the love you have for your baby; this love is a powerful force that can guide you through tough times.</string>
+    <string name="tip49">Celebrate your role as a mother; despite the challenges, you\'re doing an important and incredible job.</string>
+    <string name="tip50">Be kind to yourself; treat yourself with the same compassion and understanding you would offer a friend.</string>
+
+</resources>

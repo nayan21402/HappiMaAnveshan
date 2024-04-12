@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "349679454237",
+    "project_id": "happima-d4c57",
+    "storage_bucket": "happima-d4c57.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:349679454237:android:5cbf9350ea71bd8be21ef4",
+        "android_client_info": {
+          "package_name": "com.example.happima"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "349679454237-o9ubgds8lathnkl3r4m643eteplluv3p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.happima",
+            "certificate_hash": "2513b3c7e87c15f1fc4d0ec34d460fafae7df7b5"
+          }
+        },
+        {
+          "client_id": "349679454237-t6giq67kvppq4o149r5htd0k8k40ikbk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD01nN51_8vv6EgF0H0TkNi53NJ7O7fkxQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "349679454237-t6giq67kvppq4o149r5htd0k8k40ikbk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
