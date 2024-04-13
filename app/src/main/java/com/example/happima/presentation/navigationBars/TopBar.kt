@@ -5,9 +5,14 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -36,6 +41,8 @@ import com.example.happima.presentation.home.HomeViewModel
 
 @Composable
 fun TopBar(repository: RepositoryImp,viewModel: HomeViewModel, navController: NavController?){
+    val statusBarHeight = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
+
     val homeUiState by viewModel.homeUiState.collectAsState()
     val moodList = Resource.provideMoodList()
     var userData : UserData? = null
@@ -48,7 +55,7 @@ fun TopBar(repository: RepositoryImp,viewModel: HomeViewModel, navController: Na
         modifier = Modifier
             .background(MaterialTheme.colorScheme.primaryContainer)
             .fillMaxWidth()
-            .padding(start = 5.dp, end = 5.dp)) {
+            .padding(top = statusBarHeight,start = 5.dp, end = 5.dp)) {
         IconButton(onClick = {
             viewModel.showMoodDialog(true)
         }) {

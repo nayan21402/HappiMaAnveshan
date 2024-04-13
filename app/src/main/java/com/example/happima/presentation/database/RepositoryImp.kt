@@ -33,6 +33,15 @@ class RepositoryImp(private val googleAuthUiClient: GoogleAuthUiClient) : Reposi
         }
     }
 
+
+    override fun postReply(content: String, userMessageRepliedTo: userMessage) {
+        val user = googleAuthUiClient.getSignedInUser()
+        if (user != null) {
+            db.addMessageReply(userData=user,userMessageRepliedTo=userMessageRepliedTo,content=content)
+        }
+    }
+
+
     override fun getFeed(callback: (List<userMessage>) -> Unit) {
         db.retrieveMessage {
             callback(it)

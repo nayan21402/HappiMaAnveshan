@@ -36,6 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -49,6 +50,7 @@ import androidx.compose.ui.unit.sp
 import com.example.happima.R
 import com.example.happima.presentation.RenderScreenAnimated
 import com.example.happima.ui.theme.alegreya
+import com.example.happima.ui.theme.fredoka
 import kotlinx.coroutines.delay
 
 @Composable
@@ -106,7 +108,7 @@ fun SignInScreen(
         )
         Column(verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally) {
-
+/*
             Image(painter = painterResource(id = R.drawable.logo),
                 contentDescription = "logo",
                 alpha = opacity,
@@ -117,14 +119,17 @@ fun SignInScreen(
             )
             Spacer(modifier = Modifier.height(10.dp))
 
-            Text(text = "HappiMa", fontSize = 60.sp,
-                fontFamily = alegreya,
-                modifier = Modifier.alpha(opacity),
-                fontWeight = FontWeight.ExtraBold)
 
+ */
+            Text(text = "HappiMa", fontSize = 60.sp,
+                fontFamily = fredoka,
+                color = MaterialTheme.colorScheme.onPrimary,
+                modifier = Modifier.alpha(opacity))
+            Spacer(modifier = Modifier.height(10.dp))
             Text(text = "Empowering Every Ma\n to Be a Happy Ma", textAlign = TextAlign.Center, fontSize = 25.sp,
                 fontFamily = alegreya,
                 modifier = Modifier.alpha(opacity2),
+                color = MaterialTheme.colorScheme.onPrimary,
                 fontWeight = FontWeight.Medium)
             Button(onClick = onSignInClick,
                 modifier = Modifier

@@ -19,11 +19,11 @@ class CloudDatabase {
     private val db = Firebase.firestore
 
     fun addMessage(userData: UserData,content : String){
-        val userMessage= userMessage(content,userData,Date())
+        val userMessage= userMessage(content = content, userData = userData, date = Date())
         Log.d("comm", "here")
 
         db.collection("Community")
-            .document()
+            .document(userMessage.id)
             .set(userMessage)
             .addOnSuccessListener {
                 Log.d("comm", "Doc added to comm")
@@ -31,11 +31,39 @@ class CloudDatabase {
             .addOnFailureListener { e ->
                 Log.e("comm", "Error adding doc to comm",e)
             }
+
+    }
+
+    fun addMessageReply(userData: UserData,userMessageRepliedTo: userMessage,content : String){
+        val updatedReplyList = userMessageRepliedTo.replyList.toMutableList().apply {
+            add(userMessage(content = content, userData = userData, date = Date()))
+        }
+
+        val userMessageUpdated = userMessage(
+            id = userMessageRepliedTo.id,
+            content = userMessageRepliedTo.content,
+            userData = userMessageRepliedTo.userData,
+            date = userMessageRepliedTo.date,
+            replyList = updatedReplyList
+        )
+
+        Log.d("comm", "here")
+
+        db.collection("Community")
+            .document(userMessageRepliedTo.id)
+            .set(userMessageUpdated)
+            .addOnSuccessListener {
+                Log.d("comm", "Reply added to message")
+            }
+            .addOnFailureListener { e ->
+                Log.e("comm", "Error adding reply",e)
+            }
     }
 
     fun retrieveMessage(callback: (List<userMessage>) -> Unit){
         db.collection("Community")
-            .limit(1)
+            .limit(10)
+            .orderBy("date", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener {
                 querySnapshot->

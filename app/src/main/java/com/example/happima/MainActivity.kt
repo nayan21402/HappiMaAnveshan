@@ -3,8 +3,10 @@ package com.example.happima
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxSize
@@ -31,6 +33,10 @@ import com.example.happima.presentation.home.HomeViewModel
 import com.example.happima.presentation.sign_in.SignInScreen
 import com.example.happima.presentation.sign_in.SignInViewModel
 import com.google.ai.client.generativeai.GenerativeModel
+import com.google.ai.client.generativeai.type.BlockThreshold
+import com.google.ai.client.generativeai.type.HarmCategory
+import com.google.ai.client.generativeai.type.SafetySetting
+import com.google.ai.client.generativeai.type.generationConfig
 import com.google.ai.sample.feature.chat.ChatScreen
 import com.google.android.gms.auth.api.identity.Identity
 import com.plcoding.composegooglesignincleanarchitecture.presentation.sign_in.GoogleAuthUiClient
@@ -52,11 +58,42 @@ class MainActivity : ComponentActivity() {
     lateinit var repository: RepositoryImp
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge(statusBarStyle = SystemBarStyle.light(
+            android.graphics.Color.TRANSPARENT,
+            android.graphics.Color.TRANSPARENT
+        ), navigationBarStyle = SystemBarStyle.light(
+            android.graphics.Color.TRANSPARENT,
+            android.graphics.Color.TRANSPARENT
+        ))
+
         repository= RepositoryImp(googleAuthUiClient)
         signInViewModel = SignInViewModel()
+        /*
         chatViewModel=ChatViewModel(GenerativeModel(
             modelName = "gemini-1.0-pro",
             apiKey = "AIzaSyC4lbtQhwQtNhGOJoFrDrQp66gWbARUXAk"))
+
+
+         */
+        chatViewModel=ChatViewModel( GenerativeModel(
+            "gemini-1.0-pro",
+            // Retrieve API key as an environmental variable defined in a Build Configuration
+            // see https://github.com/google/secrets-gradle-plugin for further instructions
+            "AIzaSyC4lbtQhwQtNhGOJoFrDrQp66gWbARUXAk",
+            generationConfig = generationConfig {
+                temperature = 0.9f
+                topK = 1
+                topP = 1f
+                maxOutputTokens = 2048
+            },
+            safetySettings = listOf(
+                SafetySetting(HarmCategory.HARASSMENT, BlockThreshold.MEDIUM_AND_ABOVE),
+                SafetySetting(HarmCategory.HATE_SPEECH, BlockThreshold.MEDIUM_AND_ABOVE),
+                SafetySetting(HarmCategory.SEXUALLY_EXPLICIT, BlockThreshold.MEDIUM_AND_ABOVE),
+                SafetySetting(HarmCategory.DANGEROUS_CONTENT, BlockThreshold.MEDIUM_AND_ABOVE),
+            )
+        )
+        )
 
         setContent {
             AppTheme{

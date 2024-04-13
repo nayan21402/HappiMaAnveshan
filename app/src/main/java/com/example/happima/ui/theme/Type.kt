@@ -10,6 +10,7 @@ import androidx.compose.ui.unit.sp
 import com.example.happima.R
 
 // Set of Material typography styles to start with
+/*
 val alegreya = FontFamily(
     Font(R.font.alegreya_regular, FontWeight.Normal),
     Font(R.font.alegreya_medium, FontWeight.Medium, FontStyle.Italic),
@@ -19,8 +20,21 @@ val alegreya = FontFamily(
     Font(R.font.alegreya_black_italic, FontWeight.Black,FontStyle.Italic),
     Font(R.font.alegreya_extrabold_italic, FontWeight.ExtraBold,FontStyle.Italic),
     Font(R.font.alegreya_extrabold, FontWeight.ExtraBold),
-
     )
+
+
+ */
+
+val alegreya = FontFamily(
+    Font(R.font.circular_book, FontWeight.Normal),
+    Font(R.font.circular_medium, FontWeight.Medium),
+    Font(R.font.circular_bold, FontWeight.Bold),
+    Font(R.font.circular_black, FontWeight.Black),
+    Font(R.font.circular_light,FontWeight.Light)
+)
+val fredoka = FontFamily(
+    Font(R.font.fredoka_regular)
+)
 
 val Typography = Typography(
     bodyLarge = TextStyle(

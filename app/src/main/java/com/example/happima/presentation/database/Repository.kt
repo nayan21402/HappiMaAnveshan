@@ -9,6 +9,7 @@ interface Repository {
     fun getMood(callback:(moodDataDb?) -> Unit)
     fun addMood(moodData: moodDataDb)
     fun postMessage(content: String)
+    fun postReply(content: String, userMessageRepliedTo: userMessage)
     fun getFeed(callback: (List<userMessage>) -> Unit)
     fun fetchMoodGraph(callback: (List<moodDataDb>) -> Unit)
 }

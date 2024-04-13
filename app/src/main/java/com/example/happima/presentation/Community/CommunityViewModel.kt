@@ -17,11 +17,14 @@ class CommunityViewModel(
     fun updateInput(newInput: String) {
         _uiState.value = _uiState.value.copy(input = newInput)
     }
+    fun updateReplyInput(newInput: String) {
+        _uiState.value = _uiState.value.copy(replyInput =newInput)
+    }
 
     fun updateFeed() {
         viewModelScope.launch {
             repository.getFeed { messages ->
-                _uiState.value = _uiState.value.copy(feed = messages)
+                _uiState.value = _uiState.value.copy(feed = messages, feedUpdated = true)
                 Log.d("NewcommFromViewInside", _uiState.value.feedUpdated.toString())
             }
         }
@@ -33,6 +36,14 @@ class CommunityViewModel(
                 repository.postMessage(_uiState.value.input)
                 _uiState.value = _uiState.value.copy(feedUpdated = false)
             }
+
+    }
+
+    fun addReply(userMessage: userMessage) {
+        viewModelScope.launch {
+            repository.postReply(content = _uiState.value.replyInput, userMessageRepliedTo = userMessage)
+            _uiState.value = _uiState.value.copy(feedUpdated = false)
+        }
 
     }
 }
