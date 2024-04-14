@@ -114,7 +114,10 @@ fun TopBar(repository: RepositoryImp,viewModel: HomeViewModel, navController: Na
                 Column(modifier = Modifier
                     .size(50.dp)
                     .border(5.dp, color = animColor.value, CircleShape)
-                    .clickable { navController?.navigate("setting") }) {
+                    .clickable {
+                        if(navController?.currentDestination?.route!="setting")
+                            navController?.navigate("setting")
+                    }) {
                     ProfileImage(userData = userData, size = 80, modifier = Modifier.padding())
                 }
                 //

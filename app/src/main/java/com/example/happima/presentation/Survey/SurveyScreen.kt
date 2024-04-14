@@ -56,6 +56,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.navOptions
 import com.example.compose.AppTheme
 import com.example.happima.LoadedResource.Resource
 import com.example.happima.R
@@ -197,14 +198,21 @@ fun SurveyScreen(chatViewModel: ChatViewModel,navController: NavController?) {
                 if(i<9)
                     i++
                 else{
+
+                    if (navController != null) {
+                        navController.navigate(
+                            "chatBot",
+                            navOptions {
+                                popUpTo("home") {
+                                    inclusive = true
+                                }
+                            }
+                        )
+                    }
+
                     Resource.getSurvey(surveyResult)
                     chatViewModel.sendMessageWithoutBubble( Resource.addChosenOptionToSurveyResults(Resource.survey))
 
-                    navController?.navigate("chatBot"){
-                        popUpTo("survey"){
-                            inclusive=true
-                        }
-                    }
 
                 }
 

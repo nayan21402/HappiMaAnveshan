@@ -25,6 +25,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.happima.R
 import com.example.happima.presentation.home.HomeViewModel
 
@@ -32,50 +34,57 @@ import kotlinx.coroutines.selects.select
 
 
 @Composable
-fun BottomBar(navController: NavController, homeViewModel: HomeViewModel){
+fun BottomBar(navController: NavController, homeViewModel: HomeViewModel) {
     val navBarHeight = WindowInsets.statusBars.asPaddingValues().calculateBottomPadding()
 
-    val current = homeViewModel.homeUiState.collectAsState().value.currentScreen
-    val navList = listOf("Communities","Home", "Health","Chatbot")
-    Log.d("nav",current)
+    val currentDestination = navController.currentBackStackEntryAsState().value?.destination?.route
+    val navList = listOf("community", "home", "help", "chatBot") // Route names
+
     NavigationBar(modifier = Modifier.padding(bottom = navBarHeight)) {
-        NavigationBarItem(selected = navList[0]==current, onClick = {
-            homeViewModel.updateCurrentScreen(navList[0])
-            navController.navigate("community")
-
-        },
-            icon = {
-                Icon(painterResource(id = R.drawable.group),"communities", tint = MaterialTheme.colorScheme.primary)
-            }
-        )
-        NavigationBarItem(selected = navList[1]==current, onClick = {
-            homeViewModel.updateCurrentScreen(navList[1])
-            navController.navigate("home")
-        },
-            icon = {
-                Icon(Icons.Filled.Home,"home", tint = MaterialTheme.colorScheme.primary)
-            }
-        )
-
-        NavigationBarItem(selected = navList[2]==current, onClick = {
-            homeViewModel.updateCurrentScreen(navList[2])
-            navController.navigate("help")
-        },
-            icon = {
-                Icon(painterResource(id = R.drawable.health),"health", tint = MaterialTheme.colorScheme.primary)
-            }
-        )
-
-
-        NavigationBarItem(selected = navList[3]==current, onClick = {
-            homeViewModel.updateCurrentScreen(navList[3])
-            navController.navigate("chatBot")
-
-        },
-            icon = {
-                Icon(painterResource(id = R.drawable.chat_bot),"chat Bot", tint = MaterialTheme.colorScheme.primary)
-            },
-        )
+        navList.forEach { route ->
+            NavigationBarItem(
+                selected = route == currentDestination,
+                onClick = {
+                    navController.navigate(route) {
+                        // Pop up to the start destination of the graph to
+                        // avoid creating a new instance of the destination
+                        // if it is already in the back stack
+                        navController.graph.startDestinationRoute?.let {
+                            popUpTo(it) {
+                                saveState = true
+                            }
+                        }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+                },
+                icon = {
+                    when (route) {
+                        "community" -> Icon(
+                            painterResource(id = R.drawable.group),
+                            "Communities",
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                        "home" -> Icon(
+                            Icons.Filled.Home,
+                            "Home",
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                        "help" -> Icon(
+                            painterResource(id = R.drawable.health),
+                            "Health",
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                        "chatBot" -> Icon(
+                            painterResource(id = R.drawable.chat_bot),
+                            "Chat Bot",
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                        // Add more cases for other routes if needed
+                        else -> Unit
+                    }
+                }
+            )
+        }
     }
-
 }
