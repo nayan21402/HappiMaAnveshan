@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
@@ -53,6 +54,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
@@ -101,11 +103,12 @@ fun CommunityUi(repository: RepositoryImp,communityViewModel: CommunityViewModel
                     .padding(10.dp)) {
                     items(state.feed){
                         FeedPost(userMessage=it, content = it.content,userData=it.userData, replyList = it.replyList,communityViewModel)
+                    Spacer(modifier = Modifier.height(5.dp))
                     }
                 }
             }
             else{
-                Column(modifier = Modifier) {
+                Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
                     CircularProgressIndicator()
                 }
 
@@ -164,95 +167,100 @@ fun FeedPost(userMessage: userMessage?,content : String, userData : UserData?, r
     var viewReply by remember {
         mutableStateOf(false)
     }
-    Card(modifier = Modifier.padding(5.dp)) {
-        Column(modifier = Modifier.padding(5.dp)) {
-            Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Start) {
-                if(userData!=null)ProfileImage(userData = userData, size = 30, modifier = Modifier)
-                else Icon(imageVector = Icons.Filled.Face, modifier = Modifier.size(30.dp), contentDescription ="no profile pic" )
-                Spacer(modifier = Modifier.width(10.dp))
-                Text(text = userData?.username?:"user" , fontFamily = alegreya, fontWeight = FontWeight.Bold, fontSize = 20.sp)
-            }
-            Row(modifier = Modifier
-                .padding(start = 10.dp, top = 10.dp, bottom = 5.dp)) {
-                Text(
-                    text = content,
-                    textAlign = TextAlign.Left,
-                    fontSize = 20.sp,
-                    fontFamily = alegreya,
-                    fontWeight = FontWeight.Normal,
-                    modifier = Modifier.weight(0.9f)
-                )
-                IconButton(onClick = { liked=!liked }) {
-                    if(liked==false)
-                        Icon(imageVector = Icons.Filled.FavoriteBorder, contentDescription = "Like", modifier = Modifier
-                            .weight(0.1f)
-                            .scale(1.1f))
-                    else
-                        Icon(imageVector = Icons.Filled.Favorite, contentDescription = "Like", modifier = Modifier.weight(0.1f))
 
-                }
+    Column(modifier = Modifier
+        .shadow(elevation = 10.dp, shape = RoundedCornerShape(10))
+        .clip(RoundedCornerShape(10))
+        .background(MaterialTheme.colorScheme.onPrimary)
+        .padding(3.dp)
+    ) {
+        Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Start) {
+            if(userData!=null)ProfileImage(userData = userData, size = 30, modifier = Modifier)
+            else Icon(imageVector = Icons.Filled.Face, modifier = Modifier.size(30.dp), contentDescription ="no profile pic" )
+            Spacer(modifier = Modifier.width(10.dp))
+            Text(text = userData?.username?:"user" , fontFamily = alegreya, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+        }
+        Row(modifier = Modifier
+            .padding(start = 10.dp, top = 10.dp)) {
+            Text(
+                text = content,
+                textAlign = TextAlign.Left,
+                fontSize = 18.sp,
+                fontFamily = alegreya,
+                fontWeight = FontWeight.Normal,
+                modifier = Modifier.weight(0.9f)
+            )
 
-            }
-            var input by remember {
-                mutableStateOf("")
-            }
-            AnimatedVisibility(visible = reply) {
-                TextField(modifier = Modifier.fillMaxWidth(), colors = TextFieldDefaults.colors(unfocusedContainerColor = MaterialTheme.colorScheme.surfaceDim,focusedContainerColor = MaterialTheme.colorScheme.surfaceDim),
-                    leadingIcon = { ProfileImage(userData = userData, size = 40, modifier = Modifier)},
-                    trailingIcon = {IconButton(onClick = { //
-                        if(input.length==0)
-                            reply=false
-                        else{
-                            if (userMessage != null) {
-                                communityViewModel.updateReplyInput(input)
-                                input=""
-                                communityViewModel.addReply(userMessage)
-                                communityViewModel.updateReplyInput(input)
-                            }
 
+        }
+        var input by remember {
+            mutableStateOf("")
+        }
+        AnimatedVisibility(visible = reply) {
+            TextField(modifier = Modifier.fillMaxWidth(), colors = TextFieldDefaults.colors(unfocusedContainerColor = MaterialTheme.colorScheme.surfaceDim,focusedContainerColor = MaterialTheme.colorScheme.surfaceDim),
+                leadingIcon = { ProfileImage(userData = userData, size = 40, modifier = Modifier)},
+                trailingIcon = {IconButton(onClick = { //
+                    if(input.length==0)
+                        reply=false
+                    else{
+                        if (userMessage != null) {
+                            communityViewModel.updateReplyInput(input)
+                            input=""
+                            communityViewModel.addReply(userMessage)
+                            communityViewModel.updateReplyInput(input)
                         }
 
                     }
-                    ) {
-                        if(input.length==0)
-                            Icon(imageVector = Icons.Filled.Close, contentDescription = "Post")
-                        else
-                            Icon(imageVector = Icons.Filled.Check, contentDescription = "Post")
-                    }
-                    },
-                    value = input,
-                    onValueChange = {
-                        if(it.length<100)
-                            input=it
-                    }
-                )
-            }
-            Row {
-                Text(text = "Reply", modifier = Modifier
-                    .alpha(if (reply) 0f else 1f)
-                    .padding(start = 10.dp)
-                    .clickable {
-                        reply = !reply
-                    }, fontFamily = alegreya)
-                Text(text = "view replies", modifier = Modifier
-                    .alpha(if (reply) 0f else 1f)
-                    .padding(start = 10.dp)
-                    .clickable {
-                        viewReply = !viewReply
-                    }, fontFamily = alegreya)
-            }
 
-            AnimatedVisibility(visible = viewReply,modifier = Modifier
-                .wrapContentHeight()
-                .heightIn(0.dp, 400.dp)) {
-                if (userMessage != null) {
-                    PostReply(replyList = userMessage.replyList)
                 }
-           }
+                ) {
+                    if(input.length==0)
+                        Icon(imageVector = Icons.Filled.Close, contentDescription = "Post")
+                    else
+                        Icon(imageVector = Icons.Filled.Check, contentDescription = "Post")
+                }
+                },
+                value = input,
+                onValueChange = {
+                    if(it.length<100)
+                        input=it
+                }
+            )
+        }
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text(text = "Reply", modifier = Modifier
+                .alpha(if (reply) 0f else 1f)
+                .padding(start = 10.dp)
+                .clickable {
+                    reply = !reply
+                }, fontFamily = alegreya,
+                fontSize = 14.sp)
+            Text(text = "view replies", modifier = Modifier
+                .alpha(if (reply) 0f else 1f)
+                .padding(start = 10.dp)
+                .clickable {
+                    viewReply = !viewReply
+                }, fontFamily = alegreya,
+                fontSize = 14.sp)
+            IconButton(onClick = { liked=!liked }) {
+                if(liked==false)
+                    Icon(imageVector = Icons.Filled.FavoriteBorder, contentDescription = "Like", modifier = Modifier
+                        .scale(1.1f))
+                else
+                    Icon(imageVector = Icons.Filled.Favorite, contentDescription = "Like")
 
+            }
         }
 
-        }
+        AnimatedVisibility(visible = viewReply,modifier = Modifier
+            .heightIn(0.dp, 300.dp)) {
+            if (userMessage != null) {
+                PostReply(replyList = userMessage.replyList)
+            }
+       }
+
+    }
+
 
 }
 
@@ -261,7 +269,7 @@ fun PostReply(replyList: List<userMessage>){
     LazyColumn() {
         items(replyList){
                 it ->
-            Column(modifier = Modifier.padding(5.dp)) {
+            Column(modifier = Modifier.padding(start = 25.dp)) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
@@ -269,7 +277,7 @@ fun PostReply(replyList: List<userMessage>){
                 ) {
                     ProfileImage(
                         userData = it.userData,
-                        size = 30,
+                        size = 20,
                         modifier = Modifier
                     )
 
@@ -278,7 +286,7 @@ fun PostReply(replyList: List<userMessage>){
                         text = it.userData?.username ?: "user",
                         fontFamily = alegreya,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp
+                        fontSize = 15.sp
                     )
                 }
                 Row(
@@ -288,7 +296,7 @@ fun PostReply(replyList: List<userMessage>){
                     Text(
                         text = it.content,
                         textAlign = TextAlign.Left,
-                        fontSize = 20.sp,
+                        fontSize = 15.sp,
                         fontFamily = alegreya,
                         fontWeight = FontWeight.Normal,
                         modifier = Modifier.weight(0.9f)

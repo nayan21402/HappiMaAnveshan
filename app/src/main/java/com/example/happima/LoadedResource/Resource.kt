@@ -5,8 +5,18 @@ import androidx.compose.ui.graphics.Color
 import com.example.happima.R
 
 data class moodDataUi(val mood: String, val image: Int, val color: Color)
+data class Meal(val image: Int, val title: String)
 
+data class Mindfullness(val image: Int, val title: String, val content: String, val time: Int =0)
 object Resource {
+    fun provideMindfullnessList(): List<Mindfullness> {
+        return listOf(
+            Mindfullness(R.drawable.meditation, "Meditation", "Find inner peace and focus your mind through meditation."),
+            Mindfullness(R.drawable.yoga, "Yoga", "Stretch your body and calm your mind with yoga exercises."),
+            Mindfullness(R.drawable.painting, "Painting", "Express yourself creatively and relieve stress through painting.")
+        )
+    }
+
     fun provideMoodList(): List<moodDataUi> {
         return listOf(
             moodDataUi("worst", R.drawable.worst, Color(0xffFF555E)),
@@ -16,6 +26,18 @@ object Resource {
             moodDataUi("best", R.drawable.good, Color(0xff61CA63))
         )
     }
+
+
+    fun provideMealList(): List<Meal> {
+        return listOf(
+            Meal(R.drawable.breakfast, "Breakfast\n"),
+            Meal(R.drawable.snack1, "Morning Snack"),
+            Meal(R.drawable.lunch, "Lunch\n"),
+            Meal(R.drawable.snack2, "Evening Snack"),
+            Meal(R.drawable.dinner, "Dinner\n")
+        )
+    }
+
 
     fun provideTipList(): List<Int> {
         return listOf(

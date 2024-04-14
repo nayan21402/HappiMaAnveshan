@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -72,7 +73,7 @@ fun SurveyUi(modifier: Modifier,@StringRes ques:Int, @StringRes opt1: Int, @Stri
 
 
     Column(modifier=modifier,verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = stringResource(id = ques), fontFamily = alegreya, fontSize = 35.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center, lineHeight = 40.sp)
+        Text(text = stringResource(id = ques), fontFamily = alegreya, color = MaterialTheme.colorScheme.onPrimary, fontSize = 35.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center, lineHeight = 40.sp)
         Spacer(modifier = Modifier.height(20.dp))
         var anySelected by remember {
             mutableStateOf(false)
@@ -100,7 +101,7 @@ fun SurveyUi(modifier: Modifier,@StringRes ques:Int, @StringRes opt1: Int, @Stri
                     color=if(text==selectedOption) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.primary,
                     fontFamily = alegreya,
                     fontWeight = FontWeight.Medium,
-                    fontSize = 20.sp
+                    fontSize = 15.sp
                 )
                 RadioButton(
                     selected = (text == selectedOption),
@@ -164,6 +165,7 @@ fun SurveyScreen(navController: NavController?) {
     RenderScreenAnimated {
 
         Column(modifier = Modifier
+            .safeDrawingPadding()
             .fillMaxSize()
             .padding(10.dp),
             verticalArrangement = Arrangement.Top,
@@ -173,11 +175,13 @@ fun SurveyScreen(navController: NavController?) {
                     if(i>0)
                         i--
                 }) {
-                    Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Last Question")
+                    Icon(Icons.AutoMirrored.Filled.ArrowBack, tint = MaterialTheme.colorScheme.onPrimary, contentDescription = "Last Question")
                 }
                 LinearProgressIndicator(strokeCap = StrokeCap.Round,modifier = Modifier
                     .padding(end = 40.dp)
                     .fillMaxWidth(),
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    trackColor = MaterialTheme.colorScheme.secondary,
                     progress = { prog },
                 )
             }

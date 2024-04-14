@@ -70,8 +70,9 @@ val md_theme_dark_scrim = Color(0xFF000000)
 val seed = Color(0xFFE0EAB9)
 
 */
+val background = Color(0xffF1F9FF)
 
-val md_theme_light_primary = Color(0xFF006590)
+val md_theme_light_primary = Color(0xFF1CB0F6)
 val md_theme_light_onPrimary = Color(0xFFFFFFFF)
 val md_theme_light_primaryContainer = Color(0xFFC8E6FF)
 val md_theme_light_onPrimaryContainer = Color(0xFF001E2E)

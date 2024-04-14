@@ -56,13 +56,17 @@ fun BottomBar(navController: NavController, homeViewModel: HomeViewModel){
                 Icon(Icons.Filled.Home,"home", tint = MaterialTheme.colorScheme.primary)
             }
         )
+
         NavigationBarItem(selected = navList[2]==current, onClick = {
             homeViewModel.updateCurrentScreen(navList[2])
+            navController.navigate("help")
         },
             icon = {
                 Icon(painterResource(id = R.drawable.health),"health", tint = MaterialTheme.colorScheme.primary)
             }
         )
+
+
         NavigationBarItem(selected = navList[3]==current, onClick = {
             homeViewModel.updateCurrentScreen(navList[3])
             navController.navigate("chatBot")

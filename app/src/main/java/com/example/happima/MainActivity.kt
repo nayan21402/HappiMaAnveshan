@@ -28,6 +28,7 @@ import com.example.happima.presentation.SettingScreen
 import com.example.happima.presentation.Survey.SurveyConsent
 import com.example.happima.presentation.Survey.SurveyScreen
 import com.example.happima.presentation.database.RepositoryImp
+import com.example.happima.presentation.help.HelpScreen
 import com.example.happima.presentation.home.HomeScreen
 import com.example.happima.presentation.home.HomeViewModel
 import com.example.happima.presentation.sign_in.SignInScreen
@@ -101,7 +102,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = MaterialTheme.colorScheme.primaryContainer
                 ) {
 
                         val navController = rememberNavController()
@@ -147,7 +148,7 @@ class MainActivity : ComponentActivity() {
                                         signInViewModel.resetState()
                                         homeViewModel= HomeViewModel(repository)
                                         //change this to surveyConsent
-                                        navController.navigate("home"){
+                                        navController.navigate("surveyConsent"){
                                             popUpTo(route = "signUp"){
                                                 inclusive=true
                                             }
@@ -222,6 +223,11 @@ class MainActivity : ComponentActivity() {
                                     homeViewModel = homeViewModel,
                                     navController = navController
                                 )
+                            }
+
+                            composable("help"){
+                                communityViewModel=CommunityViewModel(repository)
+                                HelpScreen(repository = repository, homeViewModel = homeViewModel, navController = navController)
                             }
                             
                         }
