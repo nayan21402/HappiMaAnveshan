@@ -57,10 +57,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.compose.AppTheme
+import com.example.happima.LoadedResource.Resource
 import com.example.happima.R
+import com.example.happima.presentation.Gemini.ChatViewModel
 import com.example.happima.presentation.RenderScreenAnimated
 
 import com.example.happima.ui.theme.alegreya
+
+var surveyResult= mutableListOf<String>()
 
 @Composable
 fun SurveyUi(modifier: Modifier,@StringRes ques:Int, @StringRes opt1: Int, @StringRes opt2:Int, @StringRes opt3: Int, @StringRes opt4: Int, onClick: () -> Unit){
@@ -69,6 +73,7 @@ fun SurveyUi(modifier: Modifier,@StringRes ques:Int, @StringRes opt1: Int, @Stri
     var selectedOption by remember {
         mutableStateOf("na")
     }
+    
 
 
 
@@ -117,6 +122,7 @@ fun SurveyUi(modifier: Modifier,@StringRes ques:Int, @StringRes opt1: Int, @Stri
         }
 
         Button(onClick = {
+            surveyResult.add(selectedOption)
             onClick()
             anySelected=false
                          } , modifier = Modifier
@@ -134,7 +140,7 @@ fun SurveyUi(modifier: Modifier,@StringRes ques:Int, @StringRes opt1: Int, @Stri
 }
 
 @Composable
-fun SurveyScreen(navController: NavController?) {
+fun SurveyScreen(chatViewModel: ChatViewModel,navController: NavController?) {
     var i by remember { mutableStateOf(0) }
     val ques = listOf(
         R.string.ques1,
@@ -191,7 +197,10 @@ fun SurveyScreen(navController: NavController?) {
                 if(i<9)
                     i++
                 else{
-                    navController?.navigate("home"){
+                    Resource.getSurvey(surveyResult)
+                    chatViewModel.sendMessageWithoutBubble( Resource.addChosenOptionToSurveyResults(Resource.survey))
+
+                    navController?.navigate("chatBot"){
                         popUpTo("survey"){
                             inclusive=true
                         }
@@ -214,6 +223,5 @@ fun SurveyScreen(navController: NavController?) {
 @Composable
 fun PreviewSurveyScreen(){
     AppTheme {
-        SurveyScreen(navController = null)
     }
 }

@@ -1,6 +1,7 @@
 package com.example.happima
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
@@ -21,6 +22,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.compose.AppTheme
+import com.example.happima.LoadedResource.Resource
 import com.example.happima.presentation.Community.CommunityUi
 import com.example.happima.presentation.Community.CommunityViewModel
 import com.example.happima.presentation.Gemini.ChatViewModel
@@ -37,6 +39,7 @@ import com.google.ai.client.generativeai.GenerativeModel
 import com.google.ai.client.generativeai.type.BlockThreshold
 import com.google.ai.client.generativeai.type.HarmCategory
 import com.google.ai.client.generativeai.type.SafetySetting
+import com.google.ai.client.generativeai.type.content
 import com.google.ai.client.generativeai.type.generationConfig
 import com.google.ai.sample.feature.chat.ChatScreen
 import com.google.android.gms.auth.api.identity.Identity
@@ -69,6 +72,8 @@ class MainActivity : ComponentActivity() {
 
         repository= RepositoryImp(googleAuthUiClient)
         signInViewModel = SignInViewModel()
+        var chatHistory=Resource.provideChatHistory()
+        chatViewModel=ChatViewModel(Resource.getGenerativeModel(),chatHistory)
         /*
         chatViewModel=ChatViewModel(GenerativeModel(
             modelName = "gemini-1.0-pro",
@@ -76,25 +81,6 @@ class MainActivity : ComponentActivity() {
 
 
          */
-        chatViewModel=ChatViewModel( GenerativeModel(
-            "gemini-1.0-pro",
-            // Retrieve API key as an environmental variable defined in a Build Configuration
-            // see https://github.com/google/secrets-gradle-plugin for further instructions
-            "AIzaSyC4lbtQhwQtNhGOJoFrDrQp66gWbARUXAk",
-            generationConfig = generationConfig {
-                temperature = 0.9f
-                topK = 1
-                topP = 1f
-                maxOutputTokens = 2048
-            },
-            safetySettings = listOf(
-                SafetySetting(HarmCategory.HARASSMENT, BlockThreshold.MEDIUM_AND_ABOVE),
-                SafetySetting(HarmCategory.HATE_SPEECH, BlockThreshold.MEDIUM_AND_ABOVE),
-                SafetySetting(HarmCategory.SEXUALLY_EXPLICIT, BlockThreshold.MEDIUM_AND_ABOVE),
-                SafetySetting(HarmCategory.DANGEROUS_CONTENT, BlockThreshold.MEDIUM_AND_ABOVE),
-            )
-        )
-        )
 
         setContent {
             AppTheme{
@@ -148,11 +134,19 @@ class MainActivity : ComponentActivity() {
                                         signInViewModel.resetState()
                                         homeViewModel= HomeViewModel(repository)
                                         //change this to surveyConsent
-                                        navController.navigate("surveyConsent"){
+                                        //change to signInState.newUser
+                                        if(true)
+                                        navController.navigate("home"){
                                             popUpTo(route = "signUp"){
                                                 inclusive=true
                                             }
                                         }
+                                        else
+                                            navController.navigate("home"){
+                                                popUpTo(route = "signUp"){
+                                                    inclusive=true
+                                                }
+                                            }
 
 
                                     }
@@ -208,12 +202,20 @@ class MainActivity : ComponentActivity() {
                             }
                             
                             composable("survey"){
-                                SurveyScreen(navController =navController)
+                                SurveyScreen(navController =navController, chatViewModel = chatViewModel)
                             }
 
                             composable("chatBot"){
 
-                                ChatScreen(repository,chatViewModel = chatViewModel, homeViewModel = homeViewModel, navController = navController)
+                                ChatScreen(repository,chatViewModel = chatViewModel, homeViewModel = homeViewModel, navController = navController,
+                                    onClickRefresh = {
+                                        chatViewModel.resetChat()
+                                    },
+                                    onClickSurvey = {
+                                        navController.navigate("surveyConsent")
+                                        chatViewModel.resetChat()
+
+                                    })
                             }
 
                             composable("community"){

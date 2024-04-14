@@ -16,6 +16,7 @@
 
 package com.google.ai.sample.feature.chat
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,7 +32,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Send
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Send
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -58,17 +61,27 @@ import com.example.happima.presentation.Gemini.ChatViewModel
 import com.example.happima.presentation.RenderScreen
 import com.example.happima.presentation.database.RepositoryImp
 import com.example.happima.presentation.home.HomeViewModel
+import com.example.happima.ui.theme.fredoka
 import kotlinx.coroutines.launch
 
 @Composable
 fun ChatScreen(
-    repository: RepositoryImp,chatViewModel: ChatViewModel, homeViewModel: HomeViewModel, navController: NavController
+    repository: RepositoryImp,chatViewModel: ChatViewModel, homeViewModel: HomeViewModel, navController: NavController,onClickSurvey:()->Unit,onClickRefresh:()->Unit
 ) {
     val chatUiState by chatViewModel.uiState.collectAsState()
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
     RenderScreen(repository = repository,enableTopBar = false,homeViewModel = homeViewModel , navController = navController) {
-        Scaffold(
+        Scaffold(topBar = {
+            Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceAround) {
+                Button(onClick = { onClickSurvey()}) {
+                    Text(text = "Take EPDS Survey", fontFamily = fredoka, color = MaterialTheme.colorScheme.onPrimary)
+                }
+                IconButton(onClick = { onClickRefresh()}) {
+                    Icon(imageVector = Icons.Filled.Refresh, tint = MaterialTheme.colorScheme.primary, contentDescription = "")
+                }
+            }
+        },
             bottomBar = {
                 MessageInput(
                     onSendMessage = { inputText ->

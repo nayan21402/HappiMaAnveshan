@@ -4,7 +4,8 @@ import com.example.happima.presentation.home.MoodScale.moodDataDb
 
 data class SignInResult(
     val data: UserData?,
-    val errorMessage: String?
+    val errorMessage: String?,
+    val newUser: Boolean = true
 )
 
 data class UserData(

@@ -39,7 +39,10 @@ class GoogleAuthUiClient(
         val googleIdToken = credential.googleIdToken
         val googleCredentials = GoogleAuthProvider.getCredential(googleIdToken, null)
         return try {
-            val user = auth.signInWithCredential(googleCredentials).await().user
+            val userObject = auth.signInWithCredential(googleCredentials).await()
+            val user = userObject.user
+            val newUser = userObject.additionalUserInfo?.isNewUser
+
             SignInResult(
                 data = user?.run {
                     UserData(
@@ -48,7 +51,8 @@ class GoogleAuthUiClient(
                         profilePictureUrl = photoUrl?.toString()
                     )
                 },
-                errorMessage = null
+                errorMessage = null,
+                newUser=newUser?: true
             )
         } catch (e: Exception) {
             e.printStackTrace()

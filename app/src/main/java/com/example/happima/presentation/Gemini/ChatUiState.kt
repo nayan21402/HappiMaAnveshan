@@ -22,10 +22,13 @@ class ChatUiState(
     messages: List<ChatMessage> = emptyList()
 ) {
     private val _messages: MutableList<ChatMessage> = messages.toMutableStateList()
-    val messages: List<ChatMessage> = _messages
+    var messages: List<ChatMessage> = _messages
 
     fun addMessage(msg: ChatMessage) {
         _messages.add(msg)
+    }
+    fun copy(messages: List<ChatMessage>): ChatUiState {
+        return ChatUiState(messages)
     }
 
     fun replaceLastPendingMessage() {

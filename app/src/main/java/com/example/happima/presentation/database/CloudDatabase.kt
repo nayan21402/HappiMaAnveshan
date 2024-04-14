@@ -17,7 +17,11 @@ import java.util.Locale
 
 class CloudDatabase {
     private val db = Firebase.firestore
+    private val surveyResult = mutableListOf<String>()
 
+    fun getSurveyResult(callback: (List<String>) -> Unit){
+
+    }
     fun addMessage(userData: UserData,content : String){
         val userMessage= userMessage(content = content, userData = userData, date = Date())
         Log.d("comm", "here")
