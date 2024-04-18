@@ -7,7 +7,9 @@ Happi Ma is a mobile application designed to provide comprehensive support for m
 
 ### Mood Tracking & Wellbeing Support
 - **Real-time Mood Tracking:** Utilizes Jetpack Compose to create a dynamic and intuitive interface for mood tracking, synchronized with Firebase for instant updates.
-- **AI-Powered Emotional Support:** Engage with Happi, an AI assistant built using Kotlin and Firebase ML Kit, providing personalized guidance and support 24/7.
+- **AI-Powered Emotional Support:** Engage with Happi, an AI assistant built using Gemini, providing personalized guidance and support 24/7
+- **EPDD Survey** Take EPDS PPD Survey and analyse the results, and get feedback.
+
 
 ### Mindfulness & Self-Care
 - **Interactive Self-Care Modules:** Utilizes Jetpack Compose to offer interactive self-care features, including relaxation tips, stress management techniques, and sleep tracking.
@@ -23,13 +25,7 @@ Happi Ma is a mobile application designed to provide comprehensive support for m
 
 ### "Super Mom" Network
 - **Secure User Authentication:** Implements Firebase Authentication to enable secure user authentication, allowing experienced mothers to join the "Super Mom" network and provide guidance and support.
-- **Cloud Storage:** Utilizes Firebase Cloud Storage to securely store user-generated content and mentorship resources, ensuring reliable access for community members.
-
-## How It Works
-1. **User Registration:** Users sign up with Firebase Authentication to create personalized Happi Ma accounts.
-2. **Personalized Experience:** Users receive tailored recommendations and support based on their data and preferences.
-3. **Engagement:** Users explore mood tracking, access information, engage in the community forum, and connect with mentors seamlessly.
-4. **Continuous Support:** Happi Ma leverages Firebase Cloud Functions and Firebase Realtime Database to provide continuous support and real-time updates throughout the motherhood journey.
+- **Cloud Storage:** Utilizes Firebase Cloud Storage to securely store user-generated content and mentorship resources securely, ensuring reliable access for community members.
 
 ## Technologies Used
 - **Firebase:** For real-time data management, authentication, cloud storage, and cloud functions.
