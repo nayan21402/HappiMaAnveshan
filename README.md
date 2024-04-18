@@ -32,7 +32,5 @@ Happi Ma is a mobile application designed to provide comprehensive support for m
 - **Jetpack Compose:** For building dynamic and interactive UI components.
 - **Kotlin:** As the primary programming language for Android development.
 
-## Why Happi Ma?
-- **Seamless User Experience:** Built on a modern tech stack, Happi Ma offers a smooth and responsive user experience.
-- **Real-time Support:** Leveraging Firebase, Happi Ma provides instant support and engagement.
-- **Community Connection:** With features like the community forum and "Super Mom" network, Happi Ma fosters a sense of community and solidarity among mothers.
+### Screenshots
+![Screenshot 1](happiMa_SS/screenshot1.jpg)
