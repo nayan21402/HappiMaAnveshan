@@ -33,4 +33,12 @@ Happi Ma is a mobile application designed to provide comprehensive support for m
 - **Kotlin:** As the primary programming language for Android development.
 
 ### Screenshots
-![Screenshot 1](happiMa_SS/screenshot1.jpg)
+![Chat 1](happiMa_SS/chat1.jpg)
+![Chat 2](happiMa_SS/chat2.png)
+![Community](happiMa_SS/community.jpg)
+![Home](happiMa_SS/home.jpg)
+![Home 2](happiMa_SS/home2.jpg)
+![Home 3](happiMa_SS/home3.jpg)
+![Signup](happiMa_SS/signup.jpg)
+![Survey 1](happiMa_SS/survey1.png)
+![Survey 2](happiMa_SS/survey2.jpg)
