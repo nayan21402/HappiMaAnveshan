@@ -1,7 +1,10 @@
 package com.example.happima.presentation.help
 
 import android.content.ClipData.Item
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -48,39 +52,48 @@ fun HelpScreen(repository: RepositoryImp, homeViewModel:HomeViewModel, navContro
             LazyColumn (modifier = Modifier.padding(10.dp)){
                 item {
                     Text(text = "Get house help", fontFamily = fredoka, fontWeight = FontWeight.Light, fontSize = 25.sp, modifier = Modifier.padding(top = 5.dp))
-
+                    val context = LocalContext.current
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(Resource.getUrlList()["DaiMa"]))
                     MindUi(
                         image = R.drawable.daima,
                         title = "Daima Support",
                         content = "Get childcare services with our experienced Daima. From personalized care to enriching activities, ensure your child's well-being and development.",
                         showTime = false,
                         time = 0,
-                        modifier = Modifier
+                        modifier = Modifier.clickable {
+                            context.startActivity(intent)
+                        }
                     )
                 }
                 item {
                     Text(text = "Get Checkup!", fontFamily = fredoka, fontWeight = FontWeight.Light, fontSize = 25.sp, modifier = Modifier.padding(top = 5.dp))
-
+                    val context = LocalContext.current
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(Resource.getUrlList()["Doctor"]))
                     MindUi(
                         image = R.drawable.doctor,
                         title = "Expert Consultation",
                         content = "Book a consultation with our experienced doctors for personalized medical advice tailored to your needs.",
                         showTime = false,
                         time = 0,
-                        modifier = Modifier
+                        modifier = Modifier.clickable {
+                            context.startActivity(intent)
+                        }
                     )
                 }
 
                 item {
                     Text(text = "Get Family Planning Guidance!", fontFamily = fredoka, fontWeight = FontWeight.Light, fontSize = 25.sp, modifier = Modifier.padding(top = 5.dp))
-
+                    val context = LocalContext.current
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(Resource.getUrlList()["Family"]))
                     MindUi(
                         image = R.drawable.familyplan,
                         title = "Family Health Plan",
                         content = "Explore our family health plans designed to cover the healthcare needs of your entire family.",
                         showTime = false,
                         time = 0,
-                        modifier = Modifier
+                        modifier = Modifier.clickable {
+                            context.startActivity(intent)
+                        }
                     )
                 }
 

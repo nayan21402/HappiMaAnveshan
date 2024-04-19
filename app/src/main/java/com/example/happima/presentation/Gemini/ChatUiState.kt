@@ -24,6 +24,7 @@ class ChatUiState(
     private val _messages: MutableList<ChatMessage> = messages.toMutableStateList()
     var messages: List<ChatMessage> = _messages
 
+    var location : Int =0
     fun addMessage(msg: ChatMessage) {
         _messages.add(msg)
     }

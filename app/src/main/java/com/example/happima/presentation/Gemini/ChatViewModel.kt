@@ -103,7 +103,6 @@ class ChatViewModel(
 
 
 
-
     fun sendMessage(userMessage: String) {
         // Add a pending message
         _uiState.value.addMessage(

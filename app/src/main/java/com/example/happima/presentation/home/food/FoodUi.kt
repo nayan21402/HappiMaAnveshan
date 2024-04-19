@@ -3,6 +3,7 @@ package com.example.happima.presentation.home.food
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -67,7 +69,7 @@ fun FoodUi(image: Int,title : String, content : String, time : Int){
 
 @Composable
 fun MealCard(image: Int,title : String, modifier: Modifier = Modifier){
-    var radioButton by remember {
+    var radioButton by rememberSaveable {
         mutableStateOf(false)
     }
     var backgroundColor = if (radioButton )MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onPrimary
@@ -80,7 +82,10 @@ fun MealCard(image: Int,title : String, modifier: Modifier = Modifier){
             .clip(RoundedCornerShape(10))
             .background(animateColorAsState(targetValue = backgroundColor).value)
             .padding(start = 5.dp, end = 5.dp, top = 10.dp, bottom = 5.dp)
-            .width(80.dp)){
+            .width(80.dp)
+            .clickable {
+                radioButton = !radioButton
+            }){
 
         Image(painter = painterResource(id = image), modifier = Modifier
             .padding(10.dp)
@@ -90,7 +95,7 @@ fun MealCard(image: Int,title : String, modifier: Modifier = Modifier){
                 modifier = Modifier
                     .padding()
                     .fillMaxWidth())
-            RadioButton(selected = radioButton, colors = RadioButtonColors(selectedColor = MaterialTheme.colorScheme.onPrimary, unselectedColor = MaterialTheme.colorScheme.primaryContainer, disabledSelectedColor = Color.DarkGray, disabledUnselectedColor = Color.DarkGray), onClick = { radioButton=!radioButton })
+            RadioButton(selected = radioButton, colors = RadioButtonColors(selectedColor = MaterialTheme.colorScheme.onPrimary, unselectedColor = MaterialTheme.colorScheme.primaryContainer, disabledSelectedColor = Color.DarkGray, disabledUnselectedColor = Color.DarkGray), onClick = {  })
 
         }
 

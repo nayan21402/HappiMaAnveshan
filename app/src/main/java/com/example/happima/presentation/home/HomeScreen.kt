@@ -1,10 +1,13 @@
 package com.example.happima.presentation.home
 
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,11 +30,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -58,8 +63,8 @@ fun HomeScreen(repository: RepositoryImp,navController: NavController, homeViewM
     val moodViewModel = MoodViewModel(repository)
     val analyticsViewModel= AnalyticsViewModel(repository)
     val homeUiState = homeViewModel.homeUiState.collectAsState()
-    var mindfullness by rememberSaveable {
-        mutableStateOf(0)
+    var currentMindfullness by rememberSaveable {
+        mutableStateOf("Meditation")
     }
     var index by rememberSaveable {
         mutableStateOf(0)
@@ -83,8 +88,16 @@ fun HomeScreen(repository: RepositoryImp,navController: NavController, homeViewM
                     }) {
                         Icon(imageVector = Icons.Filled.KeyboardArrowLeft, contentDescription = "left")
                     }
-                   Box(modifier = Modifier.weight(1f)){
+                    val context = LocalContext.current
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(Resource.getUrlList()[currentMindfullness]))
+                   Box(modifier = Modifier
+                       .weight(1f)
+                       .clickable() {
+                           context.startActivity(intent)
+                       }){
                        Resource.provideMindfullnessList().forEachIndexed(){imgIndex,item->
+                           if(index==imgIndex)
+                               currentMindfullness=item.title
                            MindUi(
                                image = item.image,
                                title = item.title,
@@ -92,6 +105,7 @@ fun HomeScreen(repository: RepositoryImp,navController: NavController, homeViewM
                                showTime = false,
                                time = item.time,
                                modifier = Modifier.alpha(animateFloatAsState(targetValue = if (index == imgIndex) 1f else 0f).value)
+
                            )
 
                        }
@@ -108,13 +122,23 @@ fun HomeScreen(repository: RepositoryImp,navController: NavController, homeViewM
 
             item {
                 Text(text = "Appetite", fontFamily = fredoka, fontWeight = FontWeight.Light, fontSize = 25.sp, modifier = Modifier.padding(top = 5.dp))
-                LazyRow {
-                    items(Resource.provideMealList()){it->
-                        MealCard(image = it.image, title = it.title)
 
+                LazyRow {
+                    items(Resource.provideMealList()) { it ->
+                        MealCard(image = it.image, title = it.title)
                     }
                 }
-                RestaurantRec(title ="Don't know what to eat? Order from here!" )
+                val context = LocalContext.current
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(Resource.getUrlList()["Food"]))
+                Box(modifier = Modifier.clickable {
+                    context.startActivity(intent)
+                }){
+                    RestaurantRec(
+                        title = "Don't know what to eat? Order from here!",
+
+                    )
+                }
+
 
 
             }
@@ -122,7 +146,9 @@ fun HomeScreen(repository: RepositoryImp,navController: NavController, homeViewM
 
 
                 Row {
-                    Column(modifier = Modifier.weight(1f).fillMaxHeight()) {
+                    Column(modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight()) {
                         Text(
                             text = "Feeling overwhelmed?",
                             fontFamily = fredoka,
@@ -139,7 +165,9 @@ fun HomeScreen(repository: RepositoryImp,navController: NavController, homeViewM
                             modifier = Modifier
                         )
                     }
-                    Column(modifier = Modifier.weight(1f).fillMaxHeight()) {
+                    Column(modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight()) {
                         Text(
                             text = "Connect &\n Share",
                             fontFamily = fredoka,
@@ -170,11 +198,13 @@ fun HomeScreen(repository: RepositoryImp,navController: NavController, homeViewM
                             homeViewModel.updateTip()
                         }
                     }
-                    Box(modifier = Modifier){
-                        Analytics(analyticsViewModel,Modifier)
-                    }
                 }
 
+            }
+            item{
+                Box(modifier = Modifier){
+                    Analytics(analyticsViewModel,Modifier)
+                }
             }
 
 

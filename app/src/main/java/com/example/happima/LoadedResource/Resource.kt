@@ -17,6 +17,16 @@ data class Meal(val image: Int, val title: String)
 data class Mindfullness(val image: Int, val title: String, val content: String, val time: Int =0)
 object Resource {
 
+    fun getUrlList(): Map<String,String>{
+        return mapOf("Meditation" to "https://www.youtube.com/watch?v=bcwg5M-7xoo&ab_channel=BridgetTeyler",
+                "Yoga" to "https://www.youtube.com/watch?v=FuFQdJQSiuc&ab_channel=SarahBethYoga",
+            "Painting" to "https://www.youtube.com/watch?v=eTEKGOi6SVg&list=PLstBGyjBf4fJ-6aftDOacnWKLBcH4wssQ&index=24&ab_channel=BobRoss",
+            "Food" to "https://www.zomato.com/ncr/homefood-company-lajpat-nagar-2-new-delhi",
+            "DaiMa" to "https://www.2050healthcare.com/delhi/mother-and-babycare?gad_source=1&gclid=Cj0KCQjwiYOxBhC5ARIsAIvdH52TH5xiSYiPr8Y0A9v8aW4xCOPMMY6PyXM3Mx5gvK1DhV3rvASHbOcaAnBdEALw_wcB",
+            "Doctor" to "https://www.askapollo.com/symptom/postpartum-depression/delhi",
+            "Family" to "https://www.practo.com/search/doctors?results_type=doctor&q=%5B%7B%22word%22%3A%22family%20planning%22%2C%22autocompleted%22%3Atrue%2C%22category%22%3A%22service%22%7D%5D&city=delhi")
+    }
+
     lateinit var survey : List<String>
 
     fun getSurvey(ans: List<String>){
